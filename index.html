@@ -91,12 +91,15 @@
   .layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
   @media (max-width:860px){.layout{grid-template-columns:1fr;}}
 
-  form.add{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:28px;}
-  form.add .grid{display:grid;grid-template-columns:1fr 1.6fr 1fr 1.2fr auto;gap:12px;align-items:end;}
-  @media (max-width:1400px){form.add .grid{grid-template-columns:1fr 1fr;} form.add .grid > .full{grid-column:1/-1;}}
+  form.add{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:28px;display:flex;flex-direction:column;gap:14px;}
+  form.add .row-top{display:grid;grid-template-columns:1.4fr 1fr;gap:12px;align-items:start;}
+  @media (max-width:640px){form.add .row-top{grid-template-columns:1fr;}}
+  form.add .row-full{width:100%;}
+  form.add .actions{display:flex;justify-content:flex-end;}
   .field label{display:block;font-size:11px;color:var(--ink-soft);margin-bottom:5px;letter-spacing:.03em;}
   .field input, .field textarea{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 10px;color:var(--ink);font-size:14px;font-family:inherit;}
   .field input:focus, .field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent);}
+  .row-full .field input{padding:11px 12px;font-size:14.5px;}
   .date-inputs{display:flex;align-items:center;gap:4px;}
   .date-inputs input{width:44px;text-align:center;padding:9px 4px;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;flex:none;}
   .date-inputs span{color:var(--ink-soft);font-size:12px;}
@@ -237,15 +240,11 @@
 
     <div class="main-panel">
       <form class="add" id="add-form">
-        <div class="grid">
+        <div class="row-top">
           <div class="field">
             <label for="f-category">분류 (사업명)</label>
             <input id="f-category" list="category-options" placeholder="예: 홈페이지 개편" required>
             <datalist id="category-options"></datalist>
-          </div>
-          <div class="field">
-            <label for="f-content">내용</label>
-            <input id="f-content" placeholder="예: 견적서 3곳 비교 후 업체 선정" required>
           </div>
           <div class="field">
             <label for="f-yy">데드라인 (YY MM DD)</label>
@@ -258,10 +257,16 @@
             </div>
             <div class="date-error" id="date-error"></div>
           </div>
-          <div class="field">
-            <label for="f-note">비고</label>
-            <input id="f-note" placeholder="선택 사항">
-          </div>
+        </div>
+        <div class="row-full field">
+          <label for="f-content">내용</label>
+          <input id="f-content" placeholder="예: 견적서 3곳 비교 후 업체 선정" required>
+        </div>
+        <div class="row-full field">
+          <label for="f-note">비고</label>
+          <input id="f-note" placeholder="선택 사항">
+        </div>
+        <div class="actions">
           <button type="submit" class="submit">추가</button>
         </div>
       </form>
