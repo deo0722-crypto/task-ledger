@@ -1,67 +1,26 @@
 <title>문화도시 소영의 할일들</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nanum+Pen+Script&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
+  /* Ivory is a deliberate, fixed look — not adapted to system/OS dark mode */
   :root{
-    --bg:#FFFFFF;
-    --surface:#FFFFFF;
-    --surface-2:#F3F4F8;
-    --border:#E1E3EA;
-    --ink:#262B3A;
-    --ink-soft:#6B7080;
-    --muted:#9AA0B0;
-    --muted-bg:#EEF0F4;
+    --bg:#FAF3E2;
+    --surface:#FFFCF3;
+    --surface-2:#F0E6CB;
+    --border:#E2D3A8;
+    --ink:#2C3568;
+    --ink-soft:#6068A0;
+    --muted:#A79A78;
+    --muted-bg:#ECE2C7;
     --accent:#E9472B;
-    --accent-soft:#FDE7E1;
+    --accent-soft:#FBE0D6;
     --stamp:#B65B41;
-    --stamp-soft:#FBEAE3;
+    --stamp-soft:#F3DFD3;
     --sat:#3B6EA5;
     --sun:#E9472B;
-    --rule-line: rgba(38,43,58,.09);
-    --margin-line: rgba(233,71,43,.32);
-    --shadow: 0 1px 2px rgba(30,32,45,.06), 0 6px 16px rgba(30,32,45,.05);
+    --rule-line: rgba(44,53,104,.11);
+    --margin-line: rgba(233,71,43,.35);
+    --shadow: 0 1px 2px rgba(80,55,15,.08), 0 6px 16px rgba(80,55,15,.07);
     --cat-0:#E9472B; --cat-1:#3B6EA5; --cat-2:#C9932E; --cat-3:#3F8F72; --cat-4:#8C5A8C; --cat-5:#B65B41;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#111318;
-      --surface:#191B22;
-      --surface-2:#20232C;
-      --border:#2E323C;
-      --ink:#EDEEF2;
-      --ink-soft:#A7ACB9;
-      --muted:#6B707C;
-      --muted-bg:#23262E;
-      --accent:#FF6B4A;
-      --accent-soft:#34211C;
-      --stamp:#E08A6A;
-      --stamp-soft:#2E211B;
-      --sat:#7FAAD6;
-      --sun:#FF6B4A;
-      --rule-line: rgba(237,238,242,.08);
-      --margin-line: rgba(255,107,74,.35);
-      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 20px rgba(0,0,0,.45);
-      --cat-0:#FF6B4A; --cat-1:#7FAAD6; --cat-2:#E0B85E; --cat-3:#6FC2A0; --cat-4:#C48AC4; --cat-5:#E08A6A;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#111318;
-    --surface:#191B22;
-    --surface-2:#20232C;
-    --border:#2E323C;
-    --ink:#EDEEF2;
-    --ink-soft:#A7ACB9;
-    --muted:#6B707C;
-    --muted-bg:#23262E;
-    --accent:#FF6B4A;
-    --accent-soft:#34211C;
-    --stamp:#E08A6A;
-    --stamp-soft:#2E211B;
-    --sat:#7FAAD6;
-    --sun:#FF6B4A;
-    --rule-line: rgba(237,238,242,.08);
-    --margin-line: rgba(255,107,74,.35);
-    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 20px rgba(0,0,0,.45);
-    --cat-0:#FF6B4A; --cat-1:#7FAAD6; --cat-2:#E0B85E; --cat-3:#6FC2A0; --cat-4:#C48AC4; --cat-5:#E08A6A;
   }
 
   *{box-sizing:border-box;}
@@ -248,7 +207,7 @@
   <header class="top">
     <div class="title-block">
       <h1>문화도시 소영의 할일들</h1>
-      <p>분류·데드라인별로 정리하는 업무 진행 관리표</p>
+      <p>소영아 울지말고 일을 해</p>
       <span class="sync-badge" id="sync-badge"><span class="dot"></span><span id="sync-badge-label">이 브라우저에만 저장 중</span></span>
     </div>
     <div class="stats" id="stats">
