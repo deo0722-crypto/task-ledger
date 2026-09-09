@@ -1,66 +1,66 @@
 <title>문화도시 소영의 할일들</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Gaegu:wght@400;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nanum+Pen+Script&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
   :root{
-    --bg:#FBF2DF;
-    --surface:#FDF8EC;
-    --surface-2:#F3E6C8;
-    --border:#DDC99A;
-    --ink:#2C3568;
-    --ink-soft:#6068A0;
-    --muted:#A79A78;
-    --muted-bg:#ECE2C7;
+    --bg:#FFFFFF;
+    --surface:#FFFFFF;
+    --surface-2:#F3F4F8;
+    --border:#E1E3EA;
+    --ink:#262B3A;
+    --ink-soft:#6B7080;
+    --muted:#9AA0B0;
+    --muted-bg:#EEF0F4;
     --accent:#E9472B;
-    --accent-soft:#FBE0D6;
+    --accent-soft:#FDE7E1;
     --stamp:#B65B41;
-    --stamp-soft:#F3DFD3;
+    --stamp-soft:#FBEAE3;
     --sat:#3B6EA5;
     --sun:#E9472B;
-    --rule-line: rgba(44,53,104,.13);
-    --margin-line: rgba(233,71,43,.4);
-    --shadow: 0 1px 2px rgba(80,55,15,.09), 0 6px 16px rgba(80,55,15,.08);
+    --rule-line: rgba(38,43,58,.09);
+    --margin-line: rgba(233,71,43,.32);
+    --shadow: 0 1px 2px rgba(30,32,45,.06), 0 6px 16px rgba(30,32,45,.05);
     --cat-0:#E9472B; --cat-1:#3B6EA5; --cat-2:#C9932E; --cat-3:#3F8F72; --cat-4:#8C5A8C; --cat-5:#B65B41;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#1B2140;
-      --surface:#232A4E;
-      --surface-2:#2B3260;
-      --border:#3B4478;
-      --ink:#F3E8CD;
-      --ink-soft:#C9BFA0;
-      --muted:#7C87B8;
-      --muted-bg:#2A3162;
+      --bg:#111318;
+      --surface:#191B22;
+      --surface-2:#20232C;
+      --border:#2E323C;
+      --ink:#EDEEF2;
+      --ink-soft:#A7ACB9;
+      --muted:#6B707C;
+      --muted-bg:#23262E;
       --accent:#FF6B4A;
-      --accent-soft:#3B2A28;
+      --accent-soft:#34211C;
       --stamp:#E08A6A;
-      --stamp-soft:#3A2A22;
+      --stamp-soft:#2E211B;
       --sat:#7FAAD6;
       --sun:#FF6B4A;
-      --rule-line: rgba(243,232,205,.09);
+      --rule-line: rgba(237,238,242,.08);
       --margin-line: rgba(255,107,74,.35);
-      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.4);
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 20px rgba(0,0,0,.45);
       --cat-0:#FF6B4A; --cat-1:#7FAAD6; --cat-2:#E0B85E; --cat-3:#6FC2A0; --cat-4:#C48AC4; --cat-5:#E08A6A;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#1B2140;
-    --surface:#232A4E;
-    --surface-2:#2B3260;
-    --border:#3B4478;
-    --ink:#F3E8CD;
-    --ink-soft:#C9BFA0;
-    --muted:#7C87B8;
-    --muted-bg:#2A3162;
+    --bg:#111318;
+    --surface:#191B22;
+    --surface-2:#20232C;
+    --border:#2E323C;
+    --ink:#EDEEF2;
+    --ink-soft:#A7ACB9;
+    --muted:#6B707C;
+    --muted-bg:#23262E;
     --accent:#FF6B4A;
-    --accent-soft:#3B2A28;
+    --accent-soft:#34211C;
     --stamp:#E08A6A;
-    --stamp-soft:#3A2A22;
+    --stamp-soft:#2E211B;
     --sat:#7FAAD6;
     --sun:#FF6B4A;
-    --rule-line: rgba(243,232,205,.09);
+    --rule-line: rgba(237,238,242,.08);
     --margin-line: rgba(255,107,74,.35);
-    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.4);
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 20px rgba(0,0,0,.45);
     --cat-0:#FF6B4A; --cat-1:#7FAAD6; --cat-2:#E0B85E; --cat-3:#6FC2A0; --cat-4:#C48AC4; --cat-5:#E08A6A;
   }
 
@@ -68,7 +68,7 @@
   body{
     background:var(--bg);
     color:var(--ink);
-    font-family:"Gaegu","Malgun Gothic",sans-serif;
+    font-family:"Noto Sans KR","Malgun Gothic",sans-serif;
     -webkit-font-smoothing:antialiased;
   }
   .wrap{
@@ -80,11 +80,11 @@
     background-size:100% 32px, 100% 100%;
   }
 
-  h1,h2,h3{font-family:"Noto Serif KR","Nanum Myeongjo",serif;font-weight:900;text-wrap:balance;margin:0;}
+  h1,h2,h3{font-family:"Noto Sans KR",sans-serif;font-weight:800;text-wrap:balance;margin:0;}
   .num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;}
 
   header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px;border-bottom:3px solid var(--ink);padding-bottom:20px;}
-  header.top .title-block h1{font-size:34px;font-weight:900;color:var(--accent);letter-spacing:.01em;}
+  header.top .title-block h1{font-family:"Nanum Pen Script",cursive;font-size:44px;font-weight:400;color:var(--accent);letter-spacing:.01em;line-height:1;}
   header.top .title-block p{margin:6px 0 0;color:var(--ink-soft);font-size:14px;}
   .sync-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--border);color:var(--ink-soft);margin-top:10px;}
   .sync-badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none;}
@@ -168,7 +168,7 @@
   .week{display:grid;grid-auto-flow:column;grid-auto-columns:220px;gap:12px;min-width:min-content;}
   .day-col{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;}
   .day-head{padding:12px 14px 10px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;justify-content:space-between;}
-  .day-head .d{font-family:"Noto Serif KR",serif;font-size:17px;font-weight:700;}
+  .day-head .d{font-family:"Noto Sans KR",sans-serif;font-size:17px;font-weight:700;}
   .day-head.sat .d{color:var(--sat);}
   .day-head.sun .d{color:var(--sun);}
   .day-head .c{font-size:11px;color:var(--ink-soft);}
@@ -185,14 +185,14 @@
   /* Category view */
   .cat-group{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden;}
   .cat-group-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);}
-  .cat-group-head .name{font-family:"Noto Serif KR",serif;font-size:16px;font-weight:700;}
+  .cat-group-head .name{font-family:"Noto Sans KR",sans-serif;font-size:16px;font-weight:700;}
   .cat-group-head .counts{display:flex;gap:8px;font-size:11.5px;color:var(--ink-soft);}
   .cat-group-body{padding:6px 16px 10px;}
 
   /* Calendar panel */
   .calendar-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:18px 18px 16px;position:sticky;top:20px;}
   .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-  .cal-head .cal-title{font-family:"Noto Serif KR",serif;font-size:17px;font-weight:700;}
+  .cal-head .cal-title{font-family:"Noto Sans KR",sans-serif;font-size:17px;font-weight:700;}
   .cal-nav{background:var(--surface-2);border:1px solid var(--border);color:var(--ink);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;line-height:1;}
   .cal-nav:hover{background:var(--accent-soft);color:var(--accent);}
   .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:6px;}
@@ -223,7 +223,7 @@
   .cal-item.done{opacity:.75;}
   .cal-item.done .cal-item-content{text-decoration:line-through;color:var(--muted);}
   .cal-hint{margin-top:14px;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:11.5px;color:var(--ink-soft);line-height:1.5;}
-  .cal-hint::before{content:"memo";display:block;font-family:"Gaegu",sans-serif;font-weight:700;color:var(--accent);font-size:12.5px;margin-bottom:4px;}
+  .cal-hint::before{content:"memo";display:block;font-family:"Noto Sans KR",sans-serif;font-weight:700;color:var(--accent);font-size:12.5px;margin-bottom:4px;}
 
   /* Edit modal */
   .modal-overlay{position:fixed;inset:0;background:rgba(10,14,12,.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;}
