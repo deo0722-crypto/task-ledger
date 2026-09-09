@@ -124,7 +124,9 @@
 
   /* All-list view */
   .list{display:flex;flex-direction:column;gap:10px;}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);display:grid;grid-template-columns:150px 1fr 100px auto;gap:16px;align-items:center;transition:background .15s ease, opacity .15s ease;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);display:grid;grid-template-columns:150px 1fr 100px auto;gap:16px;align-items:center;transition:background .15s ease, opacity .15s ease, border-color .15s ease;cursor:pointer;}
+  .card:hover{border-color:var(--accent);}
+  .card:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
   @media (max-width:760px){.card{grid-template-columns:1fr;gap:8px;}}
   .card.done{background:var(--muted-bg);}
   .card.done .content{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--muted);}
@@ -153,7 +155,9 @@
   .day-body{padding:10px 12px;display:flex;flex-direction:column;gap:12px;flex:1;}
   .day-sec .sec-title{font-size:11px;font-weight:600;color:var(--ink-soft);letter-spacing:.03em;margin-bottom:6px;}
   .day-sec ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;}
-  .day-sec li{font-size:12.5px;background:var(--surface-2);border-radius:6px;padding:6px 8px;line-height:1.4;}
+  .day-sec li{font-size:12.5px;background:var(--surface-2);border-radius:6px;padding:6px 8px;line-height:1.4;cursor:pointer;}
+  .day-sec li:hover{background:var(--accent-soft);}
+  .day-sec li:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
   .day-sec li.done-item{color:var(--muted);text-decoration:line-through;}
   .day-sec .cat-mini{font-size:10.5px;font-weight:600;display:block;margin-bottom:1px;}
   .day-sec .none{font-size:12px;color:var(--muted);padding:2px 2px;}
@@ -192,11 +196,29 @@
   .cal-daylist{margin-top:12px;}
   .cal-daylist .day-list-head{font-size:11.5px;font-weight:600;color:var(--ink-soft);letter-spacing:.02em;margin-bottom:8px;}
   .cal-daylist .none{font-size:12px;color:var(--muted);padding:4px 0;}
-  .cal-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:8px;background:var(--surface-2);margin-bottom:6px;}
+  .cal-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:8px;background:var(--surface-2);margin-bottom:6px;cursor:pointer;}
+  .cal-item:hover{background:var(--accent-soft);}
+  .cal-item:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
   .cal-item .cal-item-content{flex:1;font-size:12.5px;line-height:1.4;}
   .cal-item.done{opacity:.75;}
   .cal-item.done .cal-item-content{text-decoration:line-through;color:var(--muted);}
   .cal-hint{margin-top:10px;font-size:11.5px;color:var(--ink-soft);}
+
+  /* Edit modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(10,14,12,.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;}
+  .modal-overlay[hidden]{display:none;}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:22px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .modal-head h2{font-size:18px;}
+  .modal-close{background:transparent;border:none;color:var(--ink-soft);font-size:15px;cursor:pointer;padding:4px 8px;border-radius:6px;line-height:1;}
+  .modal-close:hover{background:var(--muted-bg);}
+  #edit-form{display:flex;flex-direction:column;gap:14px;}
+  .modal-actions{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+  .modal-actions-right{display:flex;gap:8px;}
+  .btn-cancel{background:transparent;border:1px solid var(--border);color:var(--ink-soft);border-radius:8px;padding:9px 16px;font-size:13px;cursor:pointer;font-family:inherit;}
+  .btn-cancel:hover{background:var(--surface-2);}
+  .btn-delete{background:transparent;border:1px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:9px 16px;font-size:13px;cursor:pointer;font-family:inherit;}
+  .btn-delete:hover{background:var(--stamp-soft);}
 
   ::selection{background:var(--accent-soft);color:var(--accent);}
 </style>
@@ -289,6 +311,49 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="edit-overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+    <div class="modal-head">
+      <h2 id="edit-title">일정 수정</h2>
+      <button type="button" class="modal-close" id="edit-close" aria-label="닫기">✕</button>
+    </div>
+    <form id="edit-form">
+      <div class="row-top">
+        <div class="field">
+          <label for="e-category">분류 (사업명)</label>
+          <input id="e-category" list="category-options" required>
+        </div>
+        <div class="field">
+          <label for="e-yy">데드라인 (YY MM DD)</label>
+          <div class="date-inputs">
+            <input id="e-yy" inputmode="numeric" maxlength="2" placeholder="YY">
+            <span>/</span>
+            <input id="e-mm" inputmode="numeric" maxlength="2" placeholder="MM">
+            <span>/</span>
+            <input id="e-dd" inputmode="numeric" maxlength="2" placeholder="DD">
+          </div>
+          <div class="date-error" id="edit-date-error"></div>
+        </div>
+      </div>
+      <div class="row-full field">
+        <label for="e-content">내용</label>
+        <input id="e-content" required>
+      </div>
+      <div class="row-full field">
+        <label for="e-note">비고</label>
+        <input id="e-note">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-delete" id="edit-delete">삭제</button>
+        <div class="modal-actions-right">
+          <button type="button" class="btn-cancel" id="edit-cancel">취소</button>
+          <button type="submit" class="submit">저장</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -373,10 +438,10 @@
     return p[0].slice(2)+"."+p[1]+"."+p[2];
   }
 
-  function parseDateFields(){
-    var yy = document.getElementById("f-yy").value.trim();
-    var mm = document.getElementById("f-mm").value.trim();
-    var dd = document.getElementById("f-dd").value.trim();
+  function parseDateFields(yyId, mmId, ddId){
+    var yy = document.getElementById(yyId||"f-yy").value.trim();
+    var mm = document.getElementById(mmId||"f-mm").value.trim();
+    var dd = document.getElementById(ddId||"f-dd").value.trim();
     if (!yy && !mm && !dd) return {iso:null, error:null};
     if (!yy || !mm || !dd) return {iso:null, error:"년/월/일을 모두 입력하세요"};
     var year = 2000+Number(yy), month = Number(mm), day = Number(dd);
@@ -395,6 +460,35 @@
     document.getElementById("date-error").textContent = "";
   }
 
+  var editingId = null;
+
+  function openEditModal(id){
+    var t = tasks.find(function(x){ return x.id === id; });
+    if (!t) return;
+    editingId = id;
+    document.getElementById("e-category").value = t.category;
+    document.getElementById("e-content").value = t.content;
+    document.getElementById("e-note").value = t.note || "";
+    document.getElementById("edit-date-error").textContent = "";
+    if (t.deadline){
+      var p = t.deadline.split("-");
+      document.getElementById("e-yy").value = p[0].slice(2);
+      document.getElementById("e-mm").value = p[1];
+      document.getElementById("e-dd").value = p[2];
+    } else {
+      document.getElementById("e-yy").value = "";
+      document.getElementById("e-mm").value = "";
+      document.getElementById("e-dd").value = "";
+    }
+    document.getElementById("edit-overlay").hidden = false;
+    document.getElementById("e-category").focus();
+  }
+
+  function closeEditModal(){
+    editingId = null;
+    document.getElementById("edit-overlay").hidden = true;
+  }
+
   function cycleStatus(id){
     var t = tasks.find(function(x){ return x.id === id; });
     if (!t) return;
@@ -408,6 +502,11 @@
     tasks = tasks.filter(function(x){ return x.id !== id; });
     save(tasks);
     renderAll();
+  }
+
+  function onActivate(node, handler){
+    node.addEventListener("click", handler);
+    node.addEventListener("keydown", function(ev){ if (ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); handler(ev); } });
   }
 
   function el(tag, attrs, children){
@@ -427,8 +526,8 @@
       class:"status-pill", "data-status":t.status, tabIndex:0, role:"button",
       "aria-label":"상태 변경: 현재 "+STATUS_LABEL[t.status]
     }, [ el("span",{class:"dot"}), document.createTextNode(STATUS_LABEL[t.status]) ]);
-    pill.addEventListener("click", function(){ cycleStatus(t.id); });
-    pill.addEventListener("keydown", function(ev){ if (ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); cycleStatus(t.id); } });
+    pill.addEventListener("click", function(ev){ ev.stopPropagation(); cycleStatus(t.id); });
+    pill.addEventListener("keydown", function(ev){ if (ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); ev.stopPropagation(); cycleStatus(t.id); } });
     return pill;
   }
 
@@ -489,9 +588,11 @@
         ]),
         el("div",{class:"right"},[
           statusPill(t),
-          (function(){ var b=el("button",{class:"del",title:"삭제"},[document.createTextNode("✕")]); b.addEventListener("click",function(){removeTask(t.id);}); return b; })()
+          (function(){ var b=el("button",{class:"del",title:"삭제"},[document.createTextNode("✕")]); b.addEventListener("click",function(ev){ ev.stopPropagation(); removeTask(t.id); }); return b; })()
         ])
       ]);
+      card.tabIndex = 0;
+      onActivate(card, function(){ openEditModal(t.id); });
       list.appendChild(card);
     });
     host.appendChild(list);
@@ -501,10 +602,11 @@
     var ul = el("ul",{});
     if (!items.length){ return el("div",{class:"none"},[document.createTextNode("없음")]); }
     items.forEach(function(t){
-      var li = el("li",{class:t.status==="done"?"done-item":""},[
+      var li = el("li",{class:t.status==="done"?"done-item":"", tabIndex:0},[
         el("span",{class:"cat-mini",style:"color:"+catColor(t.category)},[document.createTextNode(t.category)]),
         document.createTextNode(t.content)
       ]);
+      onActivate(li, function(){ openEditModal(t.id); });
       ul.appendChild(li);
     });
     return ul;
@@ -589,10 +691,12 @@
           el("div",{class:"dday "+dday.cls},[document.createTextNode(t.deadline?dday.text:"")]),
           el("div",{class:"right"},[
             statusPill(t),
-            (function(){ var b=el("button",{class:"del",title:"삭제"},[document.createTextNode("✕")]); b.addEventListener("click",function(){removeTask(t.id);}); return b; })()
+            (function(){ var b=el("button",{class:"del",title:"삭제"},[document.createTextNode("✕")]); b.addEventListener("click",function(ev){ ev.stopPropagation(); removeTask(t.id); }); return b; })()
           ])
         ]);
         card.style.gridTemplateColumns = "90px 1fr 70px auto";
+        card.tabIndex = 0;
+        onActivate(card, function(){ openEditModal(t.id); });
         body.appendChild(card);
       });
       host.appendChild(el("div",{class:"cat-group"},[
@@ -672,8 +776,10 @@
         catTag(t.category),
         el("div",{class:"cal-item-content"},[document.createTextNode(t.content)]),
         statusPill(t),
-        (function(){ var b=el("button",{class:"del",title:"삭제"},[document.createTextNode("✕")]); b.addEventListener("click",function(){removeTask(t.id);}); return b; })()
+        (function(){ var b=el("button",{class:"del",title:"삭제"},[document.createTextNode("✕")]); b.addEventListener("click",function(ev){ ev.stopPropagation(); removeTask(t.id); }); return b; })()
       ]);
+      row.tabIndex = 0;
+      onActivate(row, function(){ openEditModal(t.id); });
       host.appendChild(row);
     });
   }
@@ -695,13 +801,17 @@
     renderAll();
   });
 
-  ["f-yy","f-mm","f-dd"].forEach(function(id, idx, arr){
-    var input = document.getElementById(id);
-    input.addEventListener("input", function(){
-      input.value = input.value.replace(/[^0-9]/g,"").slice(0,2);
-      if (input.value.length===2 && idx<arr.length-1){ document.getElementById(arr[idx+1]).focus(); }
+  function wireDateInputs(ids){
+    ids.forEach(function(id, idx, arr){
+      var input = document.getElementById(id);
+      input.addEventListener("input", function(){
+        input.value = input.value.replace(/[^0-9]/g,"").slice(0,2);
+        if (input.value.length===2 && idx<arr.length-1){ document.getElementById(arr[idx+1]).focus(); }
+      });
     });
-  });
+  }
+  wireDateInputs(["f-yy","f-mm","f-dd"]);
+  wireDateInputs(["e-yy","e-mm","e-dd"]);
 
   document.getElementById("add-form").addEventListener("submit", function(ev){
     ev.preventDefault();
@@ -718,6 +828,39 @@
     ev.target.reset();
     document.getElementById("f-category").focus();
     renderAll();
+  });
+
+  document.getElementById("edit-form").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    if (!editingId) return;
+    var t = tasks.find(function(x){ return x.id === editingId; });
+    if (!t) return;
+    var category = document.getElementById("e-category").value.trim();
+    var content = document.getElementById("e-content").value.trim();
+    var note = document.getElementById("e-note").value.trim();
+    var errorEl = document.getElementById("edit-date-error");
+    var parsed = parseDateFields("e-yy","e-mm","e-dd");
+    if (parsed.error){ errorEl.textContent = parsed.error; return; }
+    errorEl.textContent = "";
+    if (!category || !content) return;
+    t.category = category; t.content = content; t.note = note; t.deadline = parsed.iso;
+    save(tasks);
+    closeEditModal();
+    renderAll();
+  });
+
+  document.getElementById("edit-delete").addEventListener("click", function(){
+    if (!editingId) return;
+    removeTask(editingId);
+    closeEditModal();
+  });
+  document.getElementById("edit-close").addEventListener("click", closeEditModal);
+  document.getElementById("edit-cancel").addEventListener("click", closeEditModal);
+  document.getElementById("edit-overlay").addEventListener("click", function(ev){
+    if (ev.target.id === "edit-overlay") closeEditModal();
+  });
+  document.addEventListener("keydown", function(ev){
+    if (ev.key === "Escape" && !document.getElementById("edit-overlay").hidden) closeEditModal();
   });
 
   document.getElementById("cal-prev").addEventListener("click", function(){
